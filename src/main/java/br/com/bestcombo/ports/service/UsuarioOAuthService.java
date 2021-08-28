@@ -1,10 +1,10 @@
 package br.com.bestcombo.ports.service;
 
-import br.com.bestcombo.core.parceiros.dto.novoparceiro.NovoParceiroRequisicaoDTO;
-import br.com.bestcombo.core.parceiros.dto.novoparceiro.NovoParceiroRespostaDTO;
+import br.com.bestcombo.core.pessoas.dto.novapessoa.NovaPessoaRequisicaoDTO;
+import br.com.bestcombo.core.pessoas.dto.novapessoa.NovaPessoaRespostaDTO;
 
 public interface UsuarioOAuthService {
 
-    void criaNovoUsuario(NovoParceiroRequisicaoDTO requisicao, NovoParceiroRespostaDTO resposta);
+    String criaNovoUsuario(NovaPessoaRequisicaoDTO<? extends NovaPessoaRespostaDTO> requisicao, String grupo);
 
 }

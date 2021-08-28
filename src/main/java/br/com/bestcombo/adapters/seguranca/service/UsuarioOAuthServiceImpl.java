@@ -16,8 +16,8 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
 import br.com.bestcombo.core.exception.InfraestruturaException;
-import br.com.bestcombo.core.parceiros.dto.novoparceiro.NovoParceiroRequisicaoDTO;
-import br.com.bestcombo.core.parceiros.dto.novoparceiro.NovoParceiroRespostaDTO;
+import br.com.bestcombo.core.pessoas.dto.novapessoa.NovaPessoaRequisicaoDTO;
+import br.com.bestcombo.core.pessoas.dto.novapessoa.NovaPessoaRespostaDTO;
 import br.com.bestcombo.ports.service.UsuarioOAuthService;
 
 @ApplicationScoped
@@ -27,11 +27,11 @@ public class UsuarioOAuthServiceImpl implements UsuarioOAuthService {
     RealmResource realmResource;
 
     @Override
-    public void criaNovoUsuario(NovoParceiroRequisicaoDTO requisicao, NovoParceiroRespostaDTO resposta) {
+    public String criaNovoUsuario(NovaPessoaRequisicaoDTO<? extends NovaPessoaRespostaDTO> requisicao, String grupo) {
         try {
             UsersResource usersResource = realmResource.users();
 
-            GroupRepresentation grupoParceiro = getGrupoParceiros();
+            GroupRepresentation grupoParceiro = getGrupoParceiros(grupo);
 
             String idUsuario = criaUsuarioKeycloak(requisicao, usersResource);
 
@@ -41,20 +41,20 @@ public class UsuarioOAuthServiceImpl implements UsuarioOAuthService {
 
             userResource.joinGroup(grupoParceiro.getId());
 
-            resposta.setCodigo(idUsuario);
+            return idUsuario;
         } catch (Exception e) {
             throw new InfraestruturaException("Erro ao criar usuario Keycloak.", e);
         }
     }
 
-    private GroupRepresentation getGrupoParceiros() {
+    private GroupRepresentation getGrupoParceiros(String grupo) {
         return realmResource.groups().groups().stream()
-                .filter(g -> g.getName().equals("usuario_externo_parceiro"))
+                .filter(g -> g.getName().equals(grupo))
                 .findFirst()
                 .orElseThrow(() -> new InfraestruturaException("Erro ao recuperar o grupo usuario_externo_parceiro"));
     }
 
-    private String criaUsuarioKeycloak(NovoParceiroRequisicaoDTO requisicao, UsersResource usersResource) {
+    private String criaUsuarioKeycloak(NovaPessoaRequisicaoDTO<? extends NovaPessoaRespostaDTO> requisicao, UsersResource usersResource) {
         Response response = usersResource.create(mapperParaUserRepresentation(requisicao));
 
         if (!Arrays.asList(200, 201).contains(response.getStatus())) {
@@ -72,21 +72,20 @@ public class UsuarioOAuthServiceImpl implements UsuarioOAuthService {
         }
     }
 
-    private UserRepresentation mapperParaUserRepresentation(NovoParceiroRequisicaoDTO requisicao) {
+    private UserRepresentation mapperParaUserRepresentation(NovaPessoaRequisicaoDTO<? extends NovaPessoaRespostaDTO> requisicao) {
         UserRepresentation userRepresentation = new UserRepresentation();
-        String[] nomesSeparado = requisicao.getNome().split(" ");
 
-        userRepresentation.setUsername(requisicao.getEmail());
+        userRepresentation.setUsername(requisicao.getUsuario());
         userRepresentation.setEmail(requisicao.getEmail());
-        userRepresentation.setFirstName(nomesSeparado[0]);
-        userRepresentation.setLastName(nomesSeparado[nomesSeparado.length - 1]);
+        userRepresentation.setFirstName(requisicao.getNome());
+        userRepresentation.setLastName(requisicao.getSobrenome());
         userRepresentation.setEnabled(true);
         userRepresentation.setEmailVerified(true);
 
         return userRepresentation;
     }
 
-    private CredentialRepresentation getCredentials(NovoParceiroRequisicaoDTO requisicao) {
+    private CredentialRepresentation getCredentials(NovaPessoaRequisicaoDTO<? extends NovaPessoaRespostaDTO> requisicao) {
         CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
         credentialRepresentation.setType(CredentialRepresentation.PASSWORD);
         credentialRepresentation.setValue(requisicao.getSenha());

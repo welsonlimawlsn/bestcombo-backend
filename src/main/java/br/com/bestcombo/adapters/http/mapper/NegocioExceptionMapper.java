@@ -15,7 +15,7 @@ public class NegocioExceptionMapper implements ExceptionMapper<NegocioException>
 
     @Override
     public Response toResponse(NegocioException e) {
-        log.warn("Ocorreu um erro enquanto processava uma requisicao. {}", e.getErro());
+        log.warn("Ocorreu um erro enquanto processava uma requisicao.", e);
 
         Response.Status statusCode = ErroParaStatusCodeMapper.getStatusCodePorErro(e.getErro());
 

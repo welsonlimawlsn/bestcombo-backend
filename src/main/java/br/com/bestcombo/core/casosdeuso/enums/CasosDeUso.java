@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 public enum CasosDeUso {
 
     NOVO_PARCEIRO(1),
-    BUSCA_PARCEIRO_POR_CODIGO(2);
+    BUSCA_PARCEIRO_POR_CODIGO(2),
+    LISTA_PARCEIROS(3),
+    BUSCA_LOJA_POR_PARCEIRO(4),
+    CADASTRA_LOJA(5);
 
     private final Integer codigo;
 
