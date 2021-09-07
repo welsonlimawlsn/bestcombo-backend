@@ -39,6 +39,10 @@ public class CadastraLojaCasoDeUso extends AbstractCasoDeUso<CadastroLojaRequisi
             throw new NegocioException(Erro.TIPO_USUARIO_INVALIDO_CADASTRO_LOJA);
         }
 
+        if (lojaDAO.buscaLojaPorCNPJ(requisicao.getCnpj()).isPresent()) {
+            throw new NegocioException(Erro.LOJA_JA_CADASTRADA);
+        }
+
         LojaEntity loja = mapperParaLojaEntity(requisicao, usuario);
 
         lojaDAO.persiste(loja);

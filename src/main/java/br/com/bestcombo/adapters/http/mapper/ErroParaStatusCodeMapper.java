@@ -20,6 +20,7 @@ public class ErroParaStatusCodeMapper {
         STATUS_CODES.put(Erro.PARCEIRO_NAO_ENCONTRADO, Response.Status.NOT_FOUND);
         STATUS_CODES.put(Erro.PESSOA_JA_CADASTRADA, Response.Status.BAD_REQUEST);
         STATUS_CODES.put(Erro.LOJA_NAO_ENCONTRADA, Response.Status.NOT_FOUND);
+        STATUS_CODES.put(Erro.LOJA_JA_CADASTRADA, Response.Status.BAD_REQUEST);
     }
 
     public static Response.Status getStatusCodePorErro(Erro erro) {

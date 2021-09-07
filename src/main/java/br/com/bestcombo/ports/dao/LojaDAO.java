@@ -8,4 +8,7 @@ import br.com.bestcombo.core.loja.entity.LojaEntity;
 public interface LojaDAO extends DAO<LojaEntity, UUID> {
 
     Optional<LojaEntity> buscaLojaPorParceiro(UUID codigoParceiro);
+
+    Optional<LojaEntity> buscaLojaPorCNPJ(String cnpj);
+
 }

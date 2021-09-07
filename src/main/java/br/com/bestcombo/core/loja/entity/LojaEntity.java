@@ -33,7 +33,8 @@ import br.com.bestcombo.core.pessoas.entity.PessoaEntity;
 @Entity
 @Table(name = "tb_loja")
 @NamedQueries({
-        @NamedQuery(name = "buscaLojaPorParceiro", query = "SELECT l FROM LojaEntity l JOIN l.parceiro p WHERE p.tipo = 1 AND p.codigo = :codigoParceiro")
+        @NamedQuery(name = "buscaLojaPorParceiro", query = "SELECT l FROM LojaEntity l JOIN l.parceiro p WHERE p.tipo = 1 AND p.codigo = :codigoParceiro"),
+        @NamedQuery(name = "buscaLojaPorCNPJ", query = "SELECT l FROM LojaEntity l WHERE l.cnpj = :cnpj")
 })
 public class LojaEntity {
 

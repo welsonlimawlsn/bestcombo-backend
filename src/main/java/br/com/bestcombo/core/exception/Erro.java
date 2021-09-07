@@ -12,7 +12,8 @@ public enum Erro {
     PARCEIRO_NAO_ENCONTRADO(3, "Parceiro não encontrado."),
     PESSOA_JA_CADASTRADA(4, "Pessoa já cadastrada."),
     LOJA_NAO_ENCONTRADA(5, "Loja não encontrada."),
-    TIPO_USUARIO_INVALIDO_CADASTRO_LOJA(6, "É necessarop que o usuário seja um parceira para fazer o cadastro de uma loja.");
+    TIPO_USUARIO_INVALIDO_CADASTRO_LOJA(6, "É necessarop que o usuário seja um parceira para fazer o cadastro de uma loja."),
+    LOJA_JA_CADASTRADA(7, "Essa loja já está cadastrada.");
 
     private final Integer codigo;
 

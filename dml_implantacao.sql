@@ -15,6 +15,8 @@ INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
 VALUES (4, 'Busca Loja Por Parceiro');
 INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
 VALUES (5, 'Cadastrar Loja');
+INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
+VALUES (6, 'Listar Lojas');
 
 
 INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
