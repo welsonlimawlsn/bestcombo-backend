@@ -87,3 +87,12 @@ create table tb_loja
         constraint fk_codigo_pessoa references tb_pessoa,
     constraint uk_codigo_pessoa unique (codigo_pessoa)
 );
+
+create table tb_produto
+(
+ codigo_produto uuid primary key,
+ nome_produto varchar(50) not null,
+ descricao varchar (100) not null,
+ preco numeric(12,2) not null,
+ codigo_loja uuid not null references tb_loja
+);

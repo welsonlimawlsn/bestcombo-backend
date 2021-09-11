@@ -34,4 +34,13 @@ public class LojaDAOImpl extends DAOImpl<LojaEntity, UUID> implements LojaDAO {
         return getResultadoUnico(query);
     }
 
+    @Override
+    public Optional<LojaEntity> buscaLojaPorCodigoEParceiro(UUID codigoLoja, UUID codigoParceiro) {
+        TypedQuery<LojaEntity> query = entityManager.createNamedQuery("buscaLojaPorCodigoEParceiro", LojaEntity.class);
+
+        query.setParameter("codigo", codigoLoja);
+        query.setParameter("codigoParceiro", codigoParceiro);
+        return getResultadoUnico(query);
+    }
+
 }

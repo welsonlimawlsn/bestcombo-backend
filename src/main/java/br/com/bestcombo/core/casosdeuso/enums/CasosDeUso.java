@@ -12,7 +12,8 @@ public enum CasosDeUso {
     LISTA_PARCEIROS(3),
     BUSCA_LOJA_POR_PARCEIRO(4),
     CADASTRA_LOJA(5),
-    LISTA_LOJAS(6);
+    LISTA_LOJAS(6),
+    CADASTRO_PRODUTO(7);
 
     private final Integer codigo;
 

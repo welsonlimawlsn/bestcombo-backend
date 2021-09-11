@@ -65,8 +65,9 @@ public class SegurancaServiceImpl implements SegurancaService {
         }
     }
 
-    private String getCodigoUsuarioLogado() {
-        return ((OidcJwtCallerPrincipal) securityIdentity.getPrincipal()).getSubject();
+    @Override
+    public UUID getCodigoUsuarioLogado() {
+        return UUID.fromString(((OidcJwtCallerPrincipal) securityIdentity.getPrincipal()).getSubject());
     }
 
     @Override
@@ -76,7 +77,7 @@ public class SegurancaServiceImpl implements SegurancaService {
 
     @Override
     public PessoaEntity getUsuarioLogado() {
-        return pessoaDAO.buscaPorId(UUID.fromString(getCodigoUsuarioLogado()))
+        return pessoaDAO.buscaPorId(getCodigoUsuarioLogado())
                 .orElseThrow(() -> new InfraestruturaException("Usuário logado não encontrado na tabela de pessoas."));
     }
 

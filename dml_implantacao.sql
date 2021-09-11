@@ -17,6 +17,8 @@ INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
 VALUES (5, 'Cadastrar Loja');
 INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
 VALUES (6, 'Listar Lojas');
+INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
+VALUES (7, 'Cadastrar Produto');
 
 
 INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
@@ -31,6 +33,8 @@ INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
 VALUES (3, 4);
 INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
 VALUES (1, 5);
+INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
+VALUES (1, 7);
 
 INSERT INTO tb_tipo_pessoa (codigo_tipo_pessoa, descricao_tipo_pessoa)
 VALUES (1, 'Parceiro');
@@ -38,3 +42,4 @@ INSERT INTO tb_tipo_pessoa (codigo_tipo_pessoa, descricao_tipo_pessoa)
 VALUES (2, 'Cliente');
 INSERT INTO tb_tipo_pessoa (codigo_tipo_pessoa, descricao_tipo_pessoa)
 VALUES (3, 'Administrador');
+

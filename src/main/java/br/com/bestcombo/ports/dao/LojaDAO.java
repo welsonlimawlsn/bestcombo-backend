@@ -11,4 +11,6 @@ public interface LojaDAO extends DAO<LojaEntity, UUID> {
 
     Optional<LojaEntity> buscaLojaPorCNPJ(String cnpj);
 
+    Optional<LojaEntity> buscaLojaPorCodigoEParceiro(UUID codigoLoja, UUID codigoParceiro);
+
 }
