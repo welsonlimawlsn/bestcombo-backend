@@ -59,7 +59,7 @@ public class SegurancaServiceImpl implements SegurancaService {
     }
 
     @Override
-    public void validaPessoaLogada(String codigoPessoa) {
+    public void validaPessoaLogada(UUID codigoPessoa) {
         if (!getCodigoUsuarioLogado().equals(codigoPessoa)) {
             throw new UnauthorizedException();
         }

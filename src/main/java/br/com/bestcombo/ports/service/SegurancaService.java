@@ -9,7 +9,7 @@ public interface SegurancaService {
 
     void verificaAutorizacao(RequisicaoDTO<?> requisicao);
 
-    void validaPessoaLogada(String codigoPessoa);
+    void validaPessoaLogada(UUID codigoPessoa);
 
     boolean isParceiro();
 

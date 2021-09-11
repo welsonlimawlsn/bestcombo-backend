@@ -27,7 +27,7 @@ public class BuscaLojaPorParceiroCasoDeUso extends AbstractCasoDeUso<BuscaLojaPo
     @Override
     protected void processa(BuscaLojaPorParceiroRequisicaoDTO requisicao, BuscaLojaPorParceiroRespostaDTO resposta) throws NegocioException {
         if (segurancaService.isParceiro()) {
-            segurancaService.validaPessoaLogada(requisicao.getCodigoParceiro().toString());
+            segurancaService.validaPessoaLogada(requisicao.getCodigoParceiro());
         }
 
         LojaEntity loja = lojaDAO.buscaLojaPorParceiro(requisicao.getCodigoParceiro())
