@@ -17,4 +17,6 @@ public interface SegurancaService {
 
     UUID getCodigoUsuarioLogado();
 
+    boolean isCliente();
+
 }

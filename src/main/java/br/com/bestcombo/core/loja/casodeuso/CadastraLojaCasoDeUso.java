@@ -1,11 +1,16 @@
 package br.com.bestcombo.core.loja.casodeuso;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import br.com.bestcombo.core.casosdeuso.AbstractCasoDeUso;
 import br.com.bestcombo.core.casosdeuso.anotacao.CasoDeUso;
 import br.com.bestcombo.core.casosdeuso.enums.CasosDeUso;
+import br.com.bestcombo.core.categoria.entity.CategoriaEntity;
 import br.com.bestcombo.core.enderecos.entity.EnderecoLojaEntity;
 import br.com.bestcombo.core.enderecos.modelos.Endereco;
 import br.com.bestcombo.core.exception.Erro;
@@ -56,7 +61,16 @@ public class CadastraLojaCasoDeUso extends AbstractCasoDeUso<CadastroLojaRequisi
                 .endereco(mapperParaEndereco(requisicao))
                 .nome(requisicao.getNome())
                 .parceiro(parceiro)
+                .imagem(requisicao.getImagem())
+                .descricao(requisicao.getDescricao())
+                .categorias(mapperParaCategorias(requisicao.getCategorias()))
                 .build();
+    }
+
+    private Set<CategoriaEntity> mapperParaCategorias(List<Integer> categorias) {
+        return categorias.stream()
+                .map(codigo -> CategoriaEntity.builder().codigo(codigo).build())
+                .collect(Collectors.toSet());
     }
 
     private EnderecoLojaEntity mapperParaEndereco(CadastroLojaRequisicaoDTO requisicao) throws NegocioException {

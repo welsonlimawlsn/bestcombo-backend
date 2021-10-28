@@ -18,4 +18,6 @@ public class BuscaLojaPorParceiroRespostaDTO extends RespostaDTO {
 
     private EnderecoDTO endereco;
 
+    private String chavePix;
+
 }

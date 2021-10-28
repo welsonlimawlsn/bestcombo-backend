@@ -22,6 +22,12 @@ public class ErroParaStatusCodeMapper {
         STATUS_CODES.put(Erro.LOJA_NAO_ENCONTRADA, Response.Status.NOT_FOUND);
         STATUS_CODES.put(Erro.LOJA_JA_CADASTRADA, Response.Status.BAD_REQUEST);
         STATUS_CODES.put(Erro.LOJA_INVALIDA, Response.Status.BAD_REQUEST);
+        STATUS_CODES.put(Erro.PEDIDO_NAO_PODE_SER_ACEITO, Response.Status.BAD_REQUEST);
+        STATUS_CODES.put(Erro.SITUACAO_INVALIDA, Response.Status.BAD_REQUEST);
+        STATUS_CODES.put(Erro.JA_POSSUI_UMA_SOLICITACAO_EM_ANDAMENTO, Response.Status.BAD_REQUEST);
+        STATUS_CODES.put(Erro.ARQUIVO_NAO_ENCONTRADO, Response.Status.NOT_FOUND);
+        STATUS_CODES.put(Erro.PEDIDO_NAO_ENCONTRADO, Response.Status.NOT_FOUND);
+        STATUS_CODES.put(Erro.NENHUMA_SOLICITACAO_EM_ANDAMENTO, Response.Status.NOT_FOUND);
     }
 
     public static Response.Status getStatusCodePorErro(Erro erro) {

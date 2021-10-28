@@ -3,6 +3,9 @@ package br.com.bestcombo.adapters.dao;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -20,7 +23,7 @@ public class DAOImpl<ENTIDADE, CHAVE_PRIMARIA extends Serializable> implements D
     private final Class<ENTIDADE> entidadeClass;
 
     @Inject
-    EntityManager entityManager;
+    protected EntityManager entityManager;
 
     @Override
     public void persiste(ENTIDADE entidade) {
@@ -35,8 +38,8 @@ public class DAOImpl<ENTIDADE, CHAVE_PRIMARIA extends Serializable> implements D
     }
 
     @Override
-    public List<ENTIDADE> lista(Map<String, Object> queryParameters) {
-        StringBuilder sql = new StringBuilder("SELECT e FROM " + entidadeClass.getSimpleName() + " e WHERE 1 = 1");
+    public Collection<ENTIDADE> lista(Map<String, Object> queryParameters) {
+        StringBuilder sql = new StringBuilder(getSqlListar());
 
         for (String atributo : queryParameters.keySet()) {
             sql.append(" AND e.")
@@ -50,7 +53,12 @@ public class DAOImpl<ENTIDADE, CHAVE_PRIMARIA extends Serializable> implements D
         queryParameters
                 .forEach((atributo, valor) -> query.setParameter(atributo.replace(".", ""), valor));
 
-        return query.getResultList();
+        return new HashSet<>(query.getResultList());
+    }
+
+    @Override
+    public Collection<ENTIDADE> lista() {
+        return lista(new HashMap<>());
     }
 
     protected Optional<ENTIDADE> getResultadoUnico(TypedQuery<ENTIDADE> query) {
@@ -59,6 +67,10 @@ public class DAOImpl<ENTIDADE, CHAVE_PRIMARIA extends Serializable> implements D
         } catch (NoResultException e) {
             return Optional.empty();
         }
+    }
+
+    protected String getSqlListar() {
+        return "SELECT e FROM " + entidadeClass.getSimpleName() + " e WHERE 1 = 1";
     }
 
 }

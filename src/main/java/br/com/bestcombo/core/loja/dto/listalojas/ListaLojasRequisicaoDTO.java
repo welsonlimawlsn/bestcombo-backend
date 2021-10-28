@@ -3,6 +3,8 @@ package br.com.bestcombo.core.loja.dto.listalojas;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 import javax.ws.rs.QueryParam;
 
 import br.com.bestcombo.adapters.dao.anotacao.Coluna;
@@ -22,5 +24,9 @@ public class ListaLojasRequisicaoDTO extends QueryRequisicaoDTO<ListaLojasRespos
     @Coluna("endereco.cidade")
     @QueryParam("cidade")
     private String cidade;
+
+    @Coluna("codigo")
+    @QueryParam("codigo")
+    private UUID codigo;
 
 }

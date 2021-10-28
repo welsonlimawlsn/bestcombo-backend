@@ -40,6 +40,7 @@ public class BuscaLojaPorParceiroCasoDeUso extends AbstractCasoDeUso<BuscaLojaPo
         resposta.setCnpj(loja.getCnpj());
         resposta.setCodigo(loja.getCodigo().toString());
         resposta.setNome(loja.getNome());
+        resposta.setChavePix(loja.getChavePix());
     }
 
 }

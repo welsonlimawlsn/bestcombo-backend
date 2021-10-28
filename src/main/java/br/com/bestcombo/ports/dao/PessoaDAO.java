@@ -8,7 +8,7 @@ import br.com.bestcombo.core.pessoas.entity.PessoaEntity;
 
 public interface PessoaDAO extends DAO<PessoaEntity, UUID> {
 
-    Optional<PessoaEntity> buscaPorCpfOuEmailOuUsuario(String cpf, String email, String usuario);
+    Optional<PessoaEntity> buscaPorCpfOuEmailOuUsuario(String cpf, String email, String usuario, Integer tipoPessoa);
 
     Set<PessoaEntity> listaParceiros();
 

@@ -81,6 +81,9 @@ create table tb_loja
     cnpj_loja            varchar(14)  not null
         constraint uk_cnpj_loja unique,
     nome_loja            varchar(100) not null,
+    descricao_loja       varchar(500) not null,
+    imagem_loja          varchar(100) not null,
+    chave_pix_loja       varchar(100),
     codigo_endereco_loja uuid         not null
         constraint fk_endereco_loja references tb_endereco_loja,
     codigo_pessoa        uuid         not null
@@ -88,11 +91,130 @@ create table tb_loja
     constraint uk_codigo_pessoa unique (codigo_pessoa)
 );
 
+create table tb_tipo_servico
+(
+    codigo_tipo_servico    int          not null
+        constraint pk_tipo_servico primary key,
+    descricao_tipo_servico varchar(100) not null,
+    nome_tipo_servico      varchar(50)  not null
+);
+
+
 create table tb_produto
 (
- codigo_produto uuid primary key,
- nome_produto varchar(50) not null,
- descricao varchar (100) not null,
- preco numeric(12,2) not null,
- codigo_loja uuid not null references tb_loja
+    codigo_produto     uuid primary key,
+    nome_produto       varchar(50)    not null,
+    descricao          varchar(100)   not null,
+    preco              numeric(12, 2) not null,
+    quantidade_pessoas int            not null,
+    imagem             varchar(100)   not null,
+    codigo_loja        uuid           not null references tb_loja
 );
+
+
+create table tb_categoria
+(
+    codigo_categoria    int primary key,
+    nome_categoria      varchar(50)                    not null,
+    codigo_tipo_servico int references tb_tipo_servico not null
+);
+
+
+create table tb_produto_categoria
+(
+    codigo_produto   uuid references tb_produto,
+    codigo_categoria int references tb_categoria,
+    constraint pk_produto_categoria primary key (codigo_categoria, codigo_produto)
+);
+
+create table tb_loja_categoria
+(
+    codigo_loja      uuid references tb_loja,
+    codigo_categoria int references tb_categoria,
+    constraint pk_loja_categoria primary key (codigo_loja, codigo_categoria)
+);
+
+create table tb_tipo_situacao_pedido
+(
+    codigo_tipo_situacao_pedido int primary key,
+    nome_situacao_pedido        varchar(50) not null
+);
+
+create table tb_pedido
+(
+    codigo_pedido                  uuid primary key,
+    codigo_cliente_pedido          uuid           not null references tb_pessoa,
+    codigo_loja_pedido             uuid           not null references tb_loja,
+    data_pedido                    timestamp      not null,
+    data_ultima_atualizacao_pedido timestamp      not null,
+    data_agendamento_pedido        timestamp      not null,
+    codigo_situacao_pedido         int            not null references tb_situacao_pedido,
+    valor_total_pedido             decimal(12, 2) not null,
+    observacao_pedido              varchar(500),
+    motivo_cancelamento_pedido     varchar(500)
+);
+
+create table tb_pedido_produto
+(
+    codigo_pedido          uuid           not null references tb_pedido,
+    codigo_produto         uuid           not null references tb_produto,
+    valor_unitario_produto decimal(12, 2) not null,
+    valor_total_produto    decimal(12, 2) not null,
+    quantidade_produto     int            not null,
+    CONSTRAINT pk_pedido_produto primary key (codigo_pedido, codigo_produto)
+);
+
+create table tb_tipo_movimento_conta
+(
+    codigo    int primary key,
+    descricao varchar(50) not null
+);
+
+create table tb_saldo
+(
+    codigo_loja      uuid           not null references tb_loja,
+    data_saldo       date           not null,
+    valor_disponivel decimal(12, 2) not null,
+    valor_futuro     decimal(12, 2) not null,
+    constraint saldo_pk primary key (codigo_loja, data_saldo)
+);
+
+create table tb_movimento_conta
+(
+    codigo_movimento_conta          uuid primary key,
+    codigo_loja                     uuid           not null references tb_loja,
+    codigo_pedido                   uuid references tb_pedido,
+    tipo_movimento_conta            int            not null references tb_tipo_movimento_conta,
+    valor_movimento_conta           decimal(12, 2) not null,
+    data_movimento_conta            timestamp      not null,
+    data_efetivacao_movimento_conta timestamp,
+    efetivado_movimento_conta       bool           not null,
+    descricao_movimento_conta       varchar(50)    not null,
+    UNIQUE (codigo_loja, codigo_pedido, tipo_movimento_conta)
+);
+
+create table tb_pagarme_pedido
+(
+    codigo_pedido    uuid references tb_pedido primary key,
+    codigo_cartao    varchar(50) not null,
+    codigo_transacao varchar(50)
+);
+
+create table tb_situacao_andamento_solicitacao_saque
+(
+    codigo    int primary key,
+    descricao varchar(50) not null
+);
+
+create table tb_solicitacao_saque
+(
+    codigo_solicitacao_saque                  uuid primary key,
+    codigo_situacao_solicitacao_saque         int references tb_situacao_andamento_solicitacao_saque not null,
+    data_solicitacao_saque                    timestamp                                              not null,
+    data_ultima_atualizacao_solicitacao_saque timestamp                                              not null,
+    codigo_loja_solicitacao_saque             uuid references tb_loja                                not null,
+    chave_pix_solicitacao_saque               varchar(100)                                           not null,
+    valor_solicitacao_saque                   decimal(12, 2)                                         not null
+);
+
+alter table tb_movimento_conta add codigo_solicitacao_saque uuid references tb_solicitacao_saque unique ;

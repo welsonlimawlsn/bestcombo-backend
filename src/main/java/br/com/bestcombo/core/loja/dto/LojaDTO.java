@@ -21,4 +21,8 @@ public class LojaDTO {
 
     private String nome;
 
+    private String descricao;
+
+    private String imagem;
+
 }

@@ -1,7 +1,6 @@
 package br.com.bestcombo.adapters.dao;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -20,12 +19,13 @@ public class PessoaDAOImpl extends DAOImpl<PessoaEntity, UUID> implements Pessoa
     }
 
     @Override
-    public Optional<PessoaEntity> buscaPorCpfOuEmailOuUsuario(String cpf, String email, String usuario) {
+    public Optional<PessoaEntity> buscaPorCpfOuEmailOuUsuario(String cpf, String email, String usuario, Integer tipoPessoa) {
         TypedQuery<PessoaEntity> query = entityManager.createNamedQuery("buscaPorCpfOuEmailOuUsuario", PessoaEntity.class);
 
         query.setParameter("cpf", cpf);
         query.setParameter("email", email);
         query.setParameter("usuario", usuario);
+        query.setParameter("tipoPessoa", tipoPessoa);
 
         return getResultadoUnico(query);
     }

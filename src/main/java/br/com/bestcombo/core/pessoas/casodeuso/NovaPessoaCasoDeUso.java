@@ -34,7 +34,7 @@ public abstract class NovaPessoaCasoDeUso<REQUISICAO extends NovaPessoaRequisica
 
     @Override
     protected void processa(REQUISICAO requisicao, RESPOSTA resposta) throws NegocioException {
-        Optional<PessoaEntity> pessoa = pessoaDAO.buscaPorCpfOuEmailOuUsuario(requisicao.getCpf(), requisicao.getEmail(), requisicao.getUsuario());
+        Optional<PessoaEntity> pessoa = pessoaDAO.buscaPorCpfOuEmailOuUsuario(requisicao.getCpf(), requisicao.getEmail(), requisicao.getUsuario(), getTipoPessoa());
 
         if (pessoa.isPresent()) {
             throw new NegocioException(Erro.PESSOA_JA_CADASTRADA);

@@ -6,12 +6,13 @@ import java.util.stream.Collectors;
 
 import br.com.bestcombo.core.casosdeuso.AbstractCasoDeUso;
 import br.com.bestcombo.core.enderecos.dto.EnderecoDTO;
-import br.com.bestcombo.core.enderecos.entity.EnderecoPessoaEntity;
+import br.com.bestcombo.core.enderecos.mapper.EnderecoPessoaMapper;
 import br.com.bestcombo.core.exception.NegocioException;
 import br.com.bestcombo.core.pessoas.dto.PessoaDTO;
 import br.com.bestcombo.core.pessoas.dto.listapessoas.ListaPessoasRequisicaoDTO;
 import br.com.bestcombo.core.pessoas.dto.listapessoas.ListaPessoasRespostaDTO;
 import br.com.bestcombo.core.pessoas.entity.PessoaEntity;
+import br.com.bestcombo.core.pessoas.mapper.PessoaMapper;
 
 public abstract class ListaPessoasCasoDeUso<REQUISICAO extends ListaPessoasRequisicaoDTO<RESPOSTA>, RESPOSTA extends ListaPessoasRespostaDTO> extends AbstractCasoDeUso<REQUISICAO, RESPOSTA> {
 
@@ -25,32 +26,15 @@ public abstract class ListaPessoasCasoDeUso<REQUISICAO extends ListaPessoasRequi
     }
 
     private PessoaDTO mapperParaPessoaDTO(PessoaEntity pessoaEntity) {
-        return PessoaDTO.builder()
-                .codigo(pessoaEntity.getCodigo())
-                .cpf(pessoaEntity.getCpf())
-                .email(pessoaEntity.getEmail())
-                .nome(pessoaEntity.getNome())
-                .sobrenome(pessoaEntity.getSobrenome())
-                .enderecos(getEnderecos(pessoaEntity))
-                .build();
+        PessoaDTO pessoaDTO = PessoaMapper.mapperParaDTO(pessoaEntity);
+        pessoaDTO.setEnderecos(getEnderecos(pessoaEntity));
+        return pessoaDTO;
     }
 
     private List<EnderecoDTO> getEnderecos(PessoaEntity pessoaEntity) {
         return pessoaEntity.getEnderecos().stream()
-                .map(this::mapperParaEnderecoDTO)
+                .map(EnderecoPessoaMapper::mapperParaDTO)
                 .collect(Collectors.toList());
-    }
-
-    private EnderecoDTO mapperParaEnderecoDTO(EnderecoPessoaEntity enderecoPessoaEntity) {
-        return EnderecoDTO.builder()
-                .cep(enderecoPessoaEntity.getCep())
-                .bairro(enderecoPessoaEntity.getBairro())
-                .cidade(enderecoPessoaEntity.getCidade())
-                .complemento(enderecoPessoaEntity.getComplemento())
-                .estado(enderecoPessoaEntity.getEstado())
-                .numero(enderecoPessoaEntity.getNumero())
-                .rua(enderecoPessoaEntity.getRua())
-                .build();
     }
 
     protected abstract Set<PessoaEntity> getPessoas();

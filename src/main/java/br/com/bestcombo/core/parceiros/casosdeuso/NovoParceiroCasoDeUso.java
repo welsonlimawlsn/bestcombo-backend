@@ -9,6 +9,7 @@ import br.com.bestcombo.core.casosdeuso.enums.CasosDeUso;
 import br.com.bestcombo.core.parceiros.dto.novoparceiro.NovoParceiroRequisicaoDTO;
 import br.com.bestcombo.core.parceiros.dto.novoparceiro.NovoParceiroRespostaDTO;
 import br.com.bestcombo.core.pessoas.casodeuso.NovaPessoaCasoDeUso;
+import br.com.bestcombo.core.pessoas.enums.TipoPessoa;
 
 @ApplicationScoped
 @Slf4j
@@ -19,12 +20,12 @@ public class NovoParceiroCasoDeUso extends NovaPessoaCasoDeUso<NovoParceiroRequi
 
     @Override
     protected Integer getTipoPessoa() {
-        return PESSOA_TIPO_PARCEIRO;
+        return TipoPessoa.PARCEIRO.getCodigo();
     }
 
     @Override
     protected String getGrupoPessoa() {
-        return "usuario_externo_parceiro";
+        return TipoPessoa.PARCEIRO.getGrupo();
     }
 
 }

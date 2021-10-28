@@ -1,5 +1,7 @@
 package br.com.bestcombo.adapters.dao;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -41,6 +43,15 @@ public class LojaDAOImpl extends DAOImpl<LojaEntity, UUID> implements LojaDAO {
         query.setParameter("codigo", codigoLoja);
         query.setParameter("codigoParceiro", codigoParceiro);
         return getResultadoUnico(query);
+    }
+
+    @Override
+    public Collection<LojaEntity> buscaLojaPorTermo(String termo) {
+        TypedQuery<LojaEntity> query = entityManager.createNamedQuery("buscaLojaPorTermo", LojaEntity.class);
+
+        query.setParameter("termo", "%" + termo.toLowerCase() + "%");
+
+        return new HashSet<>(query.getResultList());
     }
 
 }

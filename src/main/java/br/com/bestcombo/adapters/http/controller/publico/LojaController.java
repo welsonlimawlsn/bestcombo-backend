@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.com.bestcombo.core.exception.NegocioException;
+import br.com.bestcombo.core.loja.dto.buscalojaportermo.BuscaLojaPorTermoRequisicaoDTO;
 import br.com.bestcombo.core.loja.dto.listalojas.ListaLojasRequisicaoDTO;
 import br.com.bestcombo.core.loja.dto.listalojas.ListaLojasRespostaDTO;
 import br.com.bestcombo.ports.casodeuso.ProcessadorCasoDeUso;
@@ -27,6 +28,12 @@ public class LojaController {
         ListaLojasRespostaDTO respostaDTO = processadorCasoDeUso.processa(requisicaoDTO);
 
         return Response.ok(respostaDTO).build();
+    }
+
+    @GET
+    @Path("/busca")
+    public Response buscaLojasPorTermo(@BeanParam BuscaLojaPorTermoRequisicaoDTO requisicaoDTO) throws NegocioException {
+        return Response.ok(processadorCasoDeUso.processa(requisicaoDTO)).build();
     }
 
 }

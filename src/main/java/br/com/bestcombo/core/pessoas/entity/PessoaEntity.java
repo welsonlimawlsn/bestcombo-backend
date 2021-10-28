@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -32,11 +32,11 @@ import br.com.bestcombo.core.enderecos.entity.EnderecoPessoaEntity;
 @NamedQueries({
         @NamedQuery(
                 name = "buscaPorCpfOuEmailOuUsuario",
-                query = "SELECT p FROM PessoaEntity p WHERE p.cpf = :cpf OR p.email = :email OR p.usuario = :usuario"
+                query = "SELECT p FROM PessoaEntity p WHERE (p.cpf = :cpf AND p.tipo = :tipoPessoa) OR p.email = :email OR p.usuario = :usuario"
         ),
         @NamedQuery(
                 name = "listaParceiros",
-                query = "SELECT p FROM PessoaEntity p join fetch p.enderecos WHERE p.tipo = 1"
+                query = "SELECT p FROM PessoaEntity p JOIN FETCH p.enderecos WHERE p.tipo = 1"
         )
 })
 public class PessoaEntity {
@@ -64,7 +64,7 @@ public class PessoaEntity {
     private Integer tipo;
 
     @OneToMany(mappedBy = "pessoa")
-    private List<EnderecoPessoaEntity> enderecos;
+    private Set<EnderecoPessoaEntity> enderecos;
 
     @Transient
     public boolean isParceiro() {

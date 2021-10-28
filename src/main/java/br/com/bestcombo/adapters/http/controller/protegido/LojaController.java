@@ -1,16 +1,19 @@
 package br.com.bestcombo.adapters.http.controller.protegido;
 
 import java.net.URI;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.com.bestcombo.core.exception.NegocioException;
+import br.com.bestcombo.core.loja.dto.adicionachavepix.AdicionaChavePixRequisicaoDTO;
 import br.com.bestcombo.core.loja.dto.cadastroloja.CadastroLojaRequisicaoDTO;
 import br.com.bestcombo.core.loja.dto.cadastroloja.CadastroLojaRespostaDTO;
 import br.com.bestcombo.ports.casodeuso.ProcessadorCasoDeUso;
@@ -28,6 +31,14 @@ public class LojaController {
         CadastroLojaRespostaDTO resposta = processadorCasoDeUso.processa(requisicao);
 
         return Response.created(URI.create("/loja/" + resposta.getCodigo())).build();
+    }
+
+    @POST
+    @Path("/pix")
+    public Response adicionaChavePix(AdicionaChavePixRequisicaoDTO requisicaoDTO) throws NegocioException {
+        processadorCasoDeUso.processa(requisicaoDTO);
+
+        return Response.ok().build();
     }
 
 }

@@ -20,6 +20,8 @@ public abstract class AbstractCasoDeUso<REQUISICAO extends RequisicaoDTO<RESPOST
 
         RESPOSTA resposta = criaResposta(tipoResposta);
 
+        requisicao.setResposta(resposta);
+
         processa(requisicao, resposta);
 
         return resposta;
@@ -33,6 +35,6 @@ public abstract class AbstractCasoDeUso<REQUISICAO extends RequisicaoDTO<RESPOST
         }
     }
 
-    protected abstract void processa(REQUISICAO requisicao, RESPOSTA resposta) throws NegocioException;
+    protected abstract void processa(REQUISICAO req, RESPOSTA res) throws NegocioException;
 
 }
