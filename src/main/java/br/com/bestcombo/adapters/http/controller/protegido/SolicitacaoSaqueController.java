@@ -21,6 +21,7 @@ import br.com.bestcombo.core.solicitacaosaque.dto.alterasituacao.AlteraSituacaoS
 import br.com.bestcombo.core.solicitacaosaque.dto.alterasituacao.AlteraSituacaoSolicitacaoSaqueRespostaDTO;
 import br.com.bestcombo.core.solicitacaosaque.dto.consultasolicitacaoandamento.ConsultaSolicitacaoSaqueRequisicaoDTO;
 import br.com.bestcombo.core.solicitacaosaque.dto.consultasolicitacaoandamento.ConsultaSolicitacaoSaqueRespostaDTO;
+import br.com.bestcombo.core.solicitacaosaque.dto.listasolicitacoes.ListaSolicitacoesSaquePendentesRequisicaoDTO;
 import br.com.bestcombo.core.solicitacaosaque.dto.novasolicitacao.NovaSolicitacaoSaqueRequisicaoDTO;
 import br.com.bestcombo.core.solicitacaosaque.dto.novasolicitacao.NovaSolicitacaoSaqueRespostaDTO;
 import br.com.bestcombo.ports.casodeuso.ProcessadorCasoDeUso;
@@ -56,6 +57,11 @@ public class SolicitacaoSaqueController {
         AlteraSituacaoSolicitacaoSaqueRespostaDTO respostaDTO = processadorCasoDeUso.processa(requisicaoDTO);
 
         return Response.ok().build();
+    }
+
+    @GET
+    public Response listaSolicitacoesSaquePendentes(@BeanParam ListaSolicitacoesSaquePendentesRequisicaoDTO requisicaoDTO) throws NegocioException {
+        return Response.ok(processadorCasoDeUso.processa(requisicaoDTO)).build();
     }
 
 }

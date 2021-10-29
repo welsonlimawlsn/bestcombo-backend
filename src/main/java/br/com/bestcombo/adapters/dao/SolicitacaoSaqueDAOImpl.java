@@ -1,6 +1,7 @@
 package br.com.bestcombo.adapters.dao;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,6 +28,15 @@ public class SolicitacaoSaqueDAOImpl extends DAOImpl<SolicitacaoSaqueEntity, UUI
         query.setParameter("situacoesPendentes", Arrays.asList(SituacaoSolicitacaoSaque.SOLICITADO, SituacaoSolicitacaoSaque.EM_ANDAMENTO));
 
         return getResultadoUnico(query);
+    }
+
+    @Override
+    public Collection<SolicitacaoSaqueEntity> listaPendentes() {
+        TypedQuery<SolicitacaoSaqueEntity> query = entityManager.createQuery("SELECT s FROM SolicitacaoSaqueEntity s WHERE s.situacaoSolicitacaoSaque IN (:situacoesPendentes)", SolicitacaoSaqueEntity.class);
+
+        query.setParameter("situacoesPendentes", Arrays.asList(SituacaoSolicitacaoSaque.EM_ANDAMENTO, SituacaoSolicitacaoSaque.SOLICITADO));
+
+        return query.getResultList();
     }
 
 }
