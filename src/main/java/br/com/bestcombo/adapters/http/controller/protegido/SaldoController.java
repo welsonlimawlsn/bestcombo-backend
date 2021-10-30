@@ -10,7 +10,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.com.bestcombo.core.exception.NegocioException;
-import br.com.bestcombo.core.saldo.dto.consultasaldos.ConsultaSaldosRequisicaoDTO;
+import br.com.bestcombo.core.saldo.dto.consultasaldos.ConsultaSaldosBestcomboRequisicaoDTO;
+import br.com.bestcombo.core.saldo.dto.consultasaldos.ConsultaSaldosParceiroRequisicaoDTO;
 import br.com.bestcombo.ports.casodeuso.ProcessadorCasoDeUso;
 
 @Path("saldos")
@@ -22,7 +23,13 @@ public class SaldoController {
     ProcessadorCasoDeUso processadorCasoDeUso;
 
     @GET
-    public Response consultaSaldo(@BeanParam ConsultaSaldosRequisicaoDTO requisicaoDTO) throws NegocioException {
+    public Response consultaSaldoParceiro(@BeanParam ConsultaSaldosParceiroRequisicaoDTO requisicaoDTO) throws NegocioException {
+        return Response.ok(processadorCasoDeUso.processa(requisicaoDTO)).build();
+    }
+
+    @GET
+    @Path("bestcombo")
+    public Response consultaSaldoBestcom(@BeanParam ConsultaSaldosBestcomboRequisicaoDTO requisicaoDTO) throws NegocioException {
         return Response.ok(processadorCasoDeUso.processa(requisicaoDTO)).build();
     }
 

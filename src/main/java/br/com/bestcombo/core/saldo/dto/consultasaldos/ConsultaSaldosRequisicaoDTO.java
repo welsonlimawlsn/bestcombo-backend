@@ -9,7 +9,6 @@ import br.com.bestcombo.core.casosdeuso.enums.CasosDeUso;
 
 @Getter
 @Setter
-@CasoDeUso(CasosDeUso.CONSULTA_SALDOS)
-public class ConsultaSaldosRequisicaoDTO extends RequisicaoDTO<ConsultaSaldosRespostaDTO> {
+public class ConsultaSaldosRequisicaoDTO<RES extends ConsultaSaldosRespostaDTO> extends RequisicaoDTO<RES> {
 
 }

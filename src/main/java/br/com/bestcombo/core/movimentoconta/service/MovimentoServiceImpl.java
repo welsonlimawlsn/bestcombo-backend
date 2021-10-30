@@ -6,7 +6,6 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -21,6 +20,7 @@ import br.com.bestcombo.core.pedidos.entity.PedidoEntity;
 import br.com.bestcombo.core.pedidos.enums.SituacaoPedido;
 import br.com.bestcombo.core.solicitacaosaque.entity.SolicitacaoSaqueEntity;
 import br.com.bestcombo.ports.dao.MovimentoContaDAO;
+import br.com.bestcombo.ports.service.AdminService;
 import br.com.bestcombo.ports.service.MovimentoService;
 import br.com.bestcombo.ports.service.SaldoService;
 
@@ -28,10 +28,6 @@ import br.com.bestcombo.ports.service.SaldoService;
 public class MovimentoServiceImpl implements MovimentoService {
 
     private static final BigDecimal PERCENTUAL_BESTCOMBO = new BigDecimal("15");
-
-    private static final LojaEntity LOJA_BESTCOMBO = LojaEntity.builder()
-            .codigo(UUID.fromString("ea31c776-fadb-4c4d-895f-84d18d25b452"))
-            .build();
 
     public static final String CUSTO_FIXO_PAGARME = "0.99";
 
@@ -42,6 +38,9 @@ public class MovimentoServiceImpl implements MovimentoService {
 
     @Inject
     SaldoService saldoService;
+
+    @Inject
+    AdminService adminService;
 
     @Transactional(Transactional.TxType.REQUIRED)
     @Override
@@ -68,8 +67,8 @@ public class MovimentoServiceImpl implements MovimentoService {
         List<MovimentoContaEntity> movimentos = List.of(
                 criaMovimento(pedido, valorTotalPedido, dataHora, pedido.getLoja(), TipoMovimentoConta.CREDITO, "Venda Pedido"),
                 criaMovimento(pedido, valorBestcombo, dataHora, pedido.getLoja(), TipoMovimentoConta.DEBITO, "Custo Plataforma"),
-                criaMovimento(pedido, valorBestcombo, dataHora, LOJA_BESTCOMBO, TipoMovimentoConta.CREDITO, "Percentual Venda Pedido"),
-                criaMovimento(pedido, custoTransacao, dataHora, LOJA_BESTCOMBO, TipoMovimentoConta.DEBITO, "Custo Transanção")
+                criaMovimento(pedido, valorBestcombo, dataHora, adminService.getLojaAdministrador(), TipoMovimentoConta.CREDITO, "Percentual Venda Pedido"),
+                criaMovimento(pedido, custoTransacao, dataHora, adminService.getLojaAdministrador(), TipoMovimentoConta.DEBITO, "Custo Transanção")
         );
 
         for (MovimentoContaEntity movimento : movimentos) {

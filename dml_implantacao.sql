@@ -59,6 +59,8 @@ INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
 VALUES (26, 'Altera Situacao Solicitação Saldo');
 INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
 VALUES (27, 'Lista Solicitaões Saque Pendentes');
+INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
+VALUES (28, 'Consulta Saldos Bestcombo');
 
 
 INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
@@ -103,6 +105,8 @@ INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
 VALUES (3, 26);
 INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
 VALUES (3, 27);
+INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
+VALUES (3, 28);
 
 INSERT INTO tb_tipo_pessoa (codigo_tipo_pessoa, descricao_tipo_pessoa)
 VALUES (1, 'Parceiro');
