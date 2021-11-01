@@ -1,6 +1,7 @@
 package br.com.bestcombo.adapters.dao;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -28,8 +29,18 @@ public class ProdutoDAOImpl extends DAOImpl<ProdutoEntity, UUID> implements Prod
     }
 
     @Override
+    public Optional<ProdutoEntity> buscaPorIdEParceiro(UUID codigo, UUID codigoUsuarioLogado) {
+        TypedQuery<ProdutoEntity> query = entityManager.createQuery("SELECT p FROM ProdutoEntity p WHERE p.codigo = :codigoProduto AND p.loja.parceiro.codigo = :codigoParceiro", ProdutoEntity.class);
+
+        query.setParameter("codigoParceiro", codigoUsuarioLogado);
+        query.setParameter("codigoProduto", codigo);
+
+        return getResultadoUnico(query);
+    }
+
+    @Override
     protected String getSqlListar() {
-        return "SELECT e FROM ProdutoEntity e JOIN FETCH e.categorias c WHERE 1 = 1";
+        return "SELECT e FROM ProdutoEntity e JOIN FETCH e.categorias c WHERE e.ativo = true";
     }
 
 }

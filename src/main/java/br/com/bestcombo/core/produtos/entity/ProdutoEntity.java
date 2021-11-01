@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -65,9 +64,17 @@ public class ProdutoEntity {
     @JoinColumn(name = "codigo_loja")
     private LojaEntity loja;
 
+    @Column(name = "ativo")
+    private Boolean ativo;
+
     @PrePersist
     public void prePersiste() {
         codigo = UUID.randomUUID();
+        ativo = true;
+    }
+
+    public void desativa() {
+        ativo = false;
     }
 
 }

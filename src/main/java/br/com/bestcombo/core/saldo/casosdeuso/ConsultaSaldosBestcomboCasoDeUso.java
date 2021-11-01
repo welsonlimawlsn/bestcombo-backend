@@ -1,6 +1,7 @@
 package br.com.bestcombo.core.saldo.casosdeuso;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import br.com.bestcombo.core.casosdeuso.anotacao.CasoDeUso;
 import br.com.bestcombo.core.casosdeuso.enums.CasosDeUso;
@@ -13,6 +14,7 @@ import br.com.bestcombo.ports.service.AdminService;
 @CasoDeUso(CasosDeUso.CONSULTA_SALDOS_BESTCOMBO)
 public class ConsultaSaldosBestcomboCasoDeUso extends ConsultaSaldosCasoDeUso<ConsultaSaldosBestcomboRequisicaoDTO, ConsultaSaldosBestcomboRespostaDTO> {
 
+    @Inject
     AdminService adminService;
 
     @Override

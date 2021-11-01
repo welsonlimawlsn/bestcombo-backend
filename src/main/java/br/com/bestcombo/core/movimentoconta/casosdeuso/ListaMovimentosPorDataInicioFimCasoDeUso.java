@@ -1,16 +1,13 @@
 package br.com.bestcombo.core.movimentoconta.casosdeuso;
 
-import lombok.RequiredArgsConstructor;
-
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import br.com.bestcombo.core.casosdeuso.AbstractCasoDeUso;
-import br.com.bestcombo.core.casosdeuso.anotacao.CasoDeUso;
-import br.com.bestcombo.core.casosdeuso.enums.CasosDeUso;
 import br.com.bestcombo.core.exception.NegocioException;
 import br.com.bestcombo.core.movimentoconta.dto.MovimentoContaDTO;
 import br.com.bestcombo.core.movimentoconta.dto.listamovimentos.ListaMovimentosPorDataInicioFimRequisicaoDTO;
@@ -18,20 +15,15 @@ import br.com.bestcombo.core.movimentoconta.dto.listamovimentos.ListaMovimentosP
 import br.com.bestcombo.core.movimentoconta.entity.MovimentoContaEntity;
 import br.com.bestcombo.core.movimentoconta.mapper.MovimentoContaMapper;
 import br.com.bestcombo.ports.dao.MovimentoContaDAO;
-import br.com.bestcombo.ports.service.SegurancaService;
 
-@RequiredArgsConstructor
-@ApplicationScoped
-@CasoDeUso(CasosDeUso.LISTA_MOVIMENTOS_DATA_INICIO_FIM)
-public class ListaMovimentosPorDataInicioFimCasoDeUso extends AbstractCasoDeUso<ListaMovimentosPorDataInicioFimRequisicaoDTO, ListaMovimentosPorDataInicioFimRespostaDTO> {
+public abstract class ListaMovimentosPorDataInicioFimCasoDeUso<REQ extends ListaMovimentosPorDataInicioFimRequisicaoDTO<RES>, RES extends ListaMovimentosPorDataInicioFimRespostaDTO> extends AbstractCasoDeUso<REQ, RES> {
 
-    final MovimentoContaDAO movimentoContaDAO;
-
-    final SegurancaService segurancaService;
+    @Inject
+    MovimentoContaDAO movimentoContaDAO;
 
     @Override
-    protected void processa(ListaMovimentosPorDataInicioFimRequisicaoDTO req, ListaMovimentosPorDataInicioFimRespostaDTO res) throws NegocioException {
-        Collection<MovimentoContaEntity> movimentos = movimentoContaDAO.listaMovimentosPorDataIncioFimECodigoParceiro(req.getDataInicio(), req.getDataFim(), segurancaService.getCodigoUsuarioLogado());
+    protected void processa(REQ req, RES res) throws NegocioException {
+        Collection<MovimentoContaEntity> movimentos = movimentoContaDAO.listaMovimentosPorDataIncioFimECodigoParceiro(req.getDataInicio(), req.getDataFim(), getCodigoPessoa());
 
         List<MovimentoContaDTO> dtos = movimentos.stream()
                 .map(MovimentoContaMapper::mapperParaDTO)
@@ -39,5 +31,7 @@ public class ListaMovimentosPorDataInicioFimCasoDeUso extends AbstractCasoDeUso<
 
         res.setMovimentos(dtos);
     }
+
+    protected abstract UUID getCodigoPessoa();
 
 }

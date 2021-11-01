@@ -11,6 +11,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.com.bestcombo.core.exception.NegocioException;
+import br.com.bestcombo.core.movimentoconta.dto.listamovimentos.ListaMovimentosPorDataInicioFimBestcomboRequisicaoDTO;
+import br.com.bestcombo.core.movimentoconta.dto.listamovimentos.ListaMovimentosPorDataInicioFimParceiroRequisicaoDTO;
 import br.com.bestcombo.core.movimentoconta.dto.listamovimentos.ListaMovimentosPorDataInicioFimRequisicaoDTO;
 import br.com.bestcombo.ports.casodeuso.ProcessadorCasoDeUso;
 
@@ -23,7 +25,13 @@ public class MovimentoContaController {
     final ProcessadorCasoDeUso processadorCasoDeUso;
 
     @GET
-    public Response listaMovimentosPorDataInicioFim(@BeanParam ListaMovimentosPorDataInicioFimRequisicaoDTO requisicaoDTO) throws NegocioException {
+    public Response listaMovimentosPorDataInicioFimParceiro(@BeanParam ListaMovimentosPorDataInicioFimParceiroRequisicaoDTO requisicaoDTO) throws NegocioException {
+        return Response.ok(processadorCasoDeUso.processa(requisicaoDTO)).build();
+    }
+
+    @GET
+    @Path("bestcombo")
+    public Response listaMovimentosPorDataInicioFimBestcombo(@BeanParam ListaMovimentosPorDataInicioFimBestcomboRequisicaoDTO requisicaoDTO) throws NegocioException {
         return Response.ok(processadorCasoDeUso.processa(requisicaoDTO)).build();
     }
 

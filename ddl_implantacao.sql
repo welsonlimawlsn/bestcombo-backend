@@ -108,7 +108,8 @@ create table tb_produto
     preco              numeric(12, 2) not null,
     quantidade_pessoas int            not null,
     imagem             varchar(100)   not null,
-    codigo_loja        uuid           not null references tb_loja
+    codigo_loja        uuid           not null references tb_loja,
+    ativo              bool           not null
 );
 
 
@@ -217,4 +218,5 @@ create table tb_solicitacao_saque
     valor_solicitacao_saque                   decimal(12, 2)                                         not null
 );
 
-alter table tb_movimento_conta add codigo_solicitacao_saque uuid references tb_solicitacao_saque unique ;
+alter table tb_movimento_conta
+    add codigo_solicitacao_saque uuid references tb_solicitacao_saque unique;
