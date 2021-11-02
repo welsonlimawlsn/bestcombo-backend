@@ -82,6 +82,7 @@ create table tb_loja
     cnpj_loja            varchar(14)  not null
         constraint uk_cnpj_loja unique,
     nome_loja            varchar(100) not null,
+    telefone_loja        varchar(11)  not null,
     descricao_loja       varchar(500) not null,
     imagem_loja          varchar(100) not null,
     chave_pix_loja       varchar(100),

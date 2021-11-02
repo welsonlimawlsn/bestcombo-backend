@@ -64,6 +64,7 @@ public class CadastraLojaCasoDeUso extends AbstractCasoDeUso<CadastroLojaRequisi
                 .imagem(requisicao.getImagem())
                 .descricao(requisicao.getDescricao())
                 .categorias(mapperParaCategorias(requisicao.getCategorias()))
+                .telefone(requisicao.getTelefone())
                 .build();
     }
 

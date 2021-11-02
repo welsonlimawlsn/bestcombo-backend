@@ -86,6 +86,9 @@ public class LojaEntity {
     @Column(name = "chave_pix_loja")
     private String chavePix;
 
+    @Column(name = "telefone_loja")
+    private String telefone;
+
     @PrePersist
     public void prePersist() {
         codigo = UUID.randomUUID();

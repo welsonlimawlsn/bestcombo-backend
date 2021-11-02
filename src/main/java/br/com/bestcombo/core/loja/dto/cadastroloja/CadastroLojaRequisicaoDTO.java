@@ -42,6 +42,10 @@ public class CadastroLojaRequisicaoDTO extends RequisicaoDTO<CadastroLojaRespost
     @NotNull(message = "O código do parceiro é obrigatório")
     private UUID codigoParceiro;
 
+    @NotEmpty(message = "O telefone é obrigatório")
+    @Size(min = 10, max = 11, message = "O telefone é inválido")
+    private String telefone;
+
     @NotNull(message = "A loja deve oferecer no mínimo uma categoria")
     @Size(min = 1, message = "A loja deve oferecer no mínimo uma categoria")
     private List<Integer> categorias;
