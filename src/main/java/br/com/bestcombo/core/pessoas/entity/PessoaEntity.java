@@ -63,6 +63,9 @@ public class PessoaEntity {
     @Column(name = "tipo_pessoa", nullable = false)
     private Integer tipo;
 
+    @Column(name = "telefone_pessoa")
+    private String telefone;
+
     @OneToMany(mappedBy = "pessoa")
     private Set<EnderecoPessoaEntity> enderecos;
 

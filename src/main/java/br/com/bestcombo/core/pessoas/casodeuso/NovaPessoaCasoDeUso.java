@@ -63,6 +63,7 @@ public abstract class NovaPessoaCasoDeUso<REQUISICAO extends NovaPessoaRequisica
                 .sobrenome(requisicao.getSobrenome())
                 .tipo(getTipoPessoa())
                 .usuario(requisicao.getUsuario())
+                .telefone(requisicao.getTelefone())
                 .build();
     }
 

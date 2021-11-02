@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import br.com.bestcombo.core.casosdeuso.dto.RequisicaoDTO;
 import br.com.bestcombo.core.enderecos.dto.EnderecoDTO;
@@ -35,5 +36,9 @@ public class NovaPessoaRequisicaoDTO<RESPOSTA extends NovaPessoaRespostaDTO> ext
 
     @NotNull(message = "O endereço é obrigatório.")
     private EnderecoDTO endereco;
+
+    @Size(min = 10, max = 11, message = "Telefone é inválido")
+    @NotEmpty(message = "O telefone é obrigatório")
+    private String telefone;
 
 }

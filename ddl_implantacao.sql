@@ -37,6 +37,7 @@ create table tb_pessoa
     cpf_pessoa       varchar(11)  not null,
     email_pessoa     varchar(255) not null
         constraint uk_email_pessoa unique,
+    telefone_pessoa  varchar(11)  not null,
     nome_pessoa      varchar(50)  not null,
     sobrenome_pessoa varchar(50)  not null,
     tipo_pessoa      integer      not null
