@@ -1,5 +1,6 @@
 package br.com.bestcombo.core.pessoas.casodeuso;
 
+import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,9 +35,9 @@ public abstract class NovaPessoaCasoDeUso<REQUISICAO extends NovaPessoaRequisica
 
     @Override
     protected void processa(REQUISICAO requisicao, RESPOSTA resposta) throws NegocioException {
-        Optional<PessoaEntity> pessoa = pessoaDAO.buscaPorCpfOuEmailOuUsuario(requisicao.getCpf(), requisicao.getEmail(), requisicao.getUsuario(), getTipoPessoa());
+        Collection<PessoaEntity> pessoas = pessoaDAO.buscaPorCpfOuEmailOuUsuario(requisicao.getCpf(), requisicao.getEmail(), requisicao.getUsuario(), getTipoPessoa());
 
-        if (pessoa.isPresent()) {
+        if (pessoas != null && !pessoas.isEmpty()) {
             throw new NegocioException(Erro.PESSOA_JA_CADASTRADA);
         }
 
