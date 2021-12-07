@@ -1,0 +1,8 @@
+<h1>Olá, $data.nomeParceiro!</h1>
+
+<p>Chegou um novo pedido. Confira na sua lista de pedidos pendentes.</p>
+
+<p>Código do pedido: $data.codigoPedido</p>
+
+<p>Atenciosamente,<br/>
+bestcombo</p>

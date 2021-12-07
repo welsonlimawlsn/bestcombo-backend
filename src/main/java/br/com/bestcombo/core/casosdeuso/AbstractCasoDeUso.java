@@ -1,13 +1,17 @@
 package br.com.bestcombo.core.casosdeuso;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.transaction.Transactional;
 
 import br.com.bestcombo.core.casosdeuso.dto.RequisicaoDTO;
 import br.com.bestcombo.core.casosdeuso.dto.RespostaDTO;
 import br.com.bestcombo.core.exception.InfraestruturaException;
 import br.com.bestcombo.core.exception.NegocioException;
+import br.com.bestcombo.core.monitoramento.Monitoramento;
 import br.com.bestcombo.util.GenericoUtil;
 
+@Slf4j
 public abstract class AbstractCasoDeUso<REQUISICAO extends RequisicaoDTO<RESPOSTA>, RESPOSTA extends RespostaDTO> {
 
     public static final int TIPO_RESPOSTA = 0;
@@ -15,16 +19,18 @@ public abstract class AbstractCasoDeUso<REQUISICAO extends RequisicaoDTO<RESPOST
     @SuppressWarnings("unchecked")
     @Transactional
     public RESPOSTA processaCasoDeUso(REQUISICAO requisicao) throws NegocioException {
+        return Monitoramento.monitora(() -> {
+            Class<RESPOSTA> tipoResposta = (Class<RESPOSTA>) GenericoUtil.getTipoGenerico(requisicao, TIPO_RESPOSTA);
 
-        Class<RESPOSTA> tipoResposta = (Class<RESPOSTA>) GenericoUtil.getTipoGenerico(requisicao, TIPO_RESPOSTA);
+            RESPOSTA resposta = criaResposta(tipoResposta);
 
-        RESPOSTA resposta = criaResposta(tipoResposta);
+            requisicao.setResposta(resposta);
 
-        requisicao.setResposta(resposta);
+            processa(requisicao, resposta);
 
-        processa(requisicao, resposta);
+            return resposta;
+        }, log, requisicao, "processaCasoDeUso");
 
-        return resposta;
     }
 
     private RESPOSTA criaResposta(Class<RESPOSTA> tipoResposta) {

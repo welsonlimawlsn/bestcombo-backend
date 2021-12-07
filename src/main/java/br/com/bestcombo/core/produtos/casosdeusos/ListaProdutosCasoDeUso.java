@@ -14,14 +14,14 @@ import br.com.bestcombo.core.produtos.dto.listaprodutos.ListaProdutosRequisicaoD
 import br.com.bestcombo.core.produtos.dto.listaprodutos.ListaProdutosRespostaDTO;
 import br.com.bestcombo.core.produtos.entity.ProdutoEntity;
 import br.com.bestcombo.core.produtos.mapper.ProdutoMapper;
-import br.com.bestcombo.ports.dao.ProdutoDao;
+import br.com.bestcombo.ports.dao.ProdutoDAO;
 
 @CasoDeUso(CasosDeUso.LISTA_PRODUTOS)
 @ApplicationScoped
 public class ListaProdutosCasoDeUso extends AbstractCasoDeUso<ListaProdutosRequisicaoDTO, ListaProdutosRespostaDTO> {
 
     @Inject
-    ProdutoDao produtoDao;
+    ProdutoDAO produtoDao;
 
     @Override
     protected void processa(ListaProdutosRequisicaoDTO requisicao, ListaProdutosRespostaDTO resposta) throws NegocioException {

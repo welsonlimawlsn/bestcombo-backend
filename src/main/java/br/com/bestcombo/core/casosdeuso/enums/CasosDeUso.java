@@ -36,15 +36,11 @@ public enum CasosDeUso {
     LISTA_SOLICITACOES_SAQUE_PENDENTES(27),
     CONSULTA_SALDOS_BESTCOMBO(28),
     LISTA_MOVIMENTOS_DATA_INICIO_FIM_BESTCOMBO(29),
-    EXCLUI_PRODUTO(30);
+    EXCLUI_PRODUTO(30),
+    LISTA_ULTIMOS_PARCEIROS(31),
+    CONSULTA_SALDOS_POR_MES(32),
+    BUSCA_PRODUTO_POR_TERMO(33),
+    LISTA_ULTIMOS_PRODUTOS_CADASTRADOS(34);
 
     private final Integer codigo;
-
-    @Override
-    public String toString() {
-        return "CasosDeUso{" +
-                "codigo=" + codigo +
-                ", descricao=" + super.toString() +
-                '}';
-    }
 }

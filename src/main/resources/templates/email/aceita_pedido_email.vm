@@ -1,0 +1,8 @@
+<h1>Olá, $data.nomeCliente!</h1>
+
+<p>Nosso parceiro vai lhe atender. Agora só vamos esperar a aprovação do pagamento para dar prosseguimento no seu pedido</p>
+
+<p>Código do pedido: $data.codigoPedido</p>
+
+<p>Atenciosamente,<br/>
+bestcombo</p>

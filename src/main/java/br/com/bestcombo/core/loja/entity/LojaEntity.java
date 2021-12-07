@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -45,7 +47,7 @@ import br.com.bestcombo.core.produtos.entity.ProdutoEntity;
         @NamedQuery(name = "buscaLojaPorParceiro", query = "SELECT l FROM LojaEntity l JOIN l.parceiro p WHERE p.tipo = 1 AND p.codigo = :codigoParceiro"),
         @NamedQuery(name = "buscaLojaPorCNPJ", query = "SELECT l FROM LojaEntity l WHERE l.cnpj = :cnpj"),
         @NamedQuery(name = "buscaLojaPorCodigoEParceiro", query = "SELECT l FROM LojaEntity l join l.parceiro as p WHERE l.codigo = :codigo and p.codigo = :codigoParceiro"),
-        @NamedQuery(name = "buscaLojaPorTermo", query = "SELECT l FROM LojaEntity l JOIN l.categorias c JOIN l.produtos p JOIN p.categorias cp WHERE lower(l.nome) LIKE :termo OR lower(l.descricao) LIKE :termo OR lower(c.nome) LIKE :termo OR lower(p.nome) LIKE :termo OR lower(p.descricao) LIKE :termo OR lower(cp.nome) LIKE :termo")
+        @NamedQuery(name = "buscaLojaPorTermo", query = "SELECT l FROM LojaEntity l JOIN l.categorias c JOIN l.produtos p JOIN p.categorias cp WHERE p.ativo = true and (lower(l.nome) LIKE :termo OR lower(l.descricao) LIKE :termo OR lower(c.nome) LIKE :termo OR lower(p.nome) LIKE :termo OR lower(p.descricao) LIKE :termo OR lower(cp.nome) LIKE :termo)")
 })
 public class LojaEntity {
 
@@ -89,9 +91,13 @@ public class LojaEntity {
     @Column(name = "telefone_loja")
     private String telefone;
 
+    @Column(name = "data_cadastro_loja")
+    private ZonedDateTime dataCadastro;
+
     @PrePersist
     public void prePersist() {
         codigo = UUID.randomUUID();
+        dataCadastro = ZonedDateTime.now(ZoneOffset.UTC);
     }
 
     public void setChavePix(String chavePix) throws NegocioException {

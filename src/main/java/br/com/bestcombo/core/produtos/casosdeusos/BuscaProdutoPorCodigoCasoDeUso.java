@@ -12,14 +12,14 @@ import br.com.bestcombo.core.produtos.dto.buscaproduto.BuscaProdutoPorCodigoRequ
 import br.com.bestcombo.core.produtos.dto.buscaproduto.BuscaProdutoPorCodigoRespostaDTO;
 import br.com.bestcombo.core.produtos.entity.ProdutoEntity;
 import br.com.bestcombo.core.produtos.mapper.ProdutoMapper;
-import br.com.bestcombo.ports.dao.ProdutoDao;
+import br.com.bestcombo.ports.dao.ProdutoDAO;
 
 @CasoDeUso(CasosDeUso.BUSCA_PRODUTO_POR_CODIGO)
 @ApplicationScoped
 public class BuscaProdutoPorCodigoCasoDeUso extends AbstractCasoDeUso<BuscaProdutoPorCodigoRequisicaoDTO, BuscaProdutoPorCodigoRespostaDTO> {
 
     @Inject
-    ProdutoDao produtoDao;
+    ProdutoDAO produtoDao;
 
     @Override
     protected void processa(BuscaProdutoPorCodigoRequisicaoDTO requisicao, BuscaProdutoPorCodigoRespostaDTO resposta) throws NegocioException {

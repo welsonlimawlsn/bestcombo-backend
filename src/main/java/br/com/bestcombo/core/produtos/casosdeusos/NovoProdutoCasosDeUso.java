@@ -16,7 +16,7 @@ import br.com.bestcombo.core.produtos.dto.novoproduto.NovoProdutoRequisicaoDTO;
 import br.com.bestcombo.core.produtos.dto.novoproduto.NovoProdutoRespostaDTO;
 import br.com.bestcombo.core.produtos.entity.ProdutoEntity;
 import br.com.bestcombo.ports.dao.LojaDAO;
-import br.com.bestcombo.ports.dao.ProdutoDao;
+import br.com.bestcombo.ports.dao.ProdutoDAO;
 import br.com.bestcombo.ports.service.SegurancaService;
 
 @CasoDeUso(CasosDeUso.CADASTRO_PRODUTO)
@@ -24,7 +24,7 @@ import br.com.bestcombo.ports.service.SegurancaService;
 public class NovoProdutoCasosDeUso extends AbstractCasoDeUso<NovoProdutoRequisicaoDTO, NovoProdutoRespostaDTO> {
 
     @Inject
-    ProdutoDao produtoDao;
+    ProdutoDAO produtoDao;
 
     @Inject
     LojaDAO lojaDAO;

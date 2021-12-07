@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -67,10 +69,14 @@ public class ProdutoEntity {
     @Column(name = "ativo")
     private Boolean ativo;
 
+    @Column(name = "data_cadastro_produto")
+    private ZonedDateTime dataCadastro;
+
     @PrePersist
     public void prePersiste() {
         codigo = UUID.randomUUID();
         ativo = true;
+        dataCadastro = ZonedDateTime.now(ZoneOffset.UTC);
     }
 
     public void desativa() {

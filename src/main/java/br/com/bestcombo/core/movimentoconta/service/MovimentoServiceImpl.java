@@ -68,7 +68,7 @@ public class MovimentoServiceImpl implements MovimentoService {
                 criaMovimento(pedido, valorTotalPedido, dataHora, pedido.getLoja(), TipoMovimentoConta.CREDITO, "Venda Pedido"),
                 criaMovimento(pedido, valorBestcombo, dataHora, pedido.getLoja(), TipoMovimentoConta.DEBITO, "Custo Plataforma"),
                 criaMovimento(pedido, valorBestcombo, dataHora, adminService.getLojaAdministrador(), TipoMovimentoConta.CREDITO, "Percentual Venda Pedido"),
-                criaMovimento(pedido, custoTransacao, dataHora, adminService.getLojaAdministrador(), TipoMovimentoConta.DEBITO, "Custo Transanção")
+                criaMovimento(pedido, custoTransacao, dataHora, adminService.getLojaAdministrador(), TipoMovimentoConta.DEBITO, "Custo Transação")
         );
 
         for (MovimentoContaEntity movimento : movimentos) {
@@ -100,7 +100,7 @@ public class MovimentoServiceImpl implements MovimentoService {
                 .tipoMovimento(tipoMovimento)
                 .dataHora(dataHora)
                 .pedido(pedido)
-                .dataHoraEfetivacao(dataHora.plusDays(30))
+                .dataHoraEfetivacao(dataHora.plusMinutes(1))
                 .efetivado(false)
                 .loja(loja)
                 .valor(valor)

@@ -151,7 +151,7 @@ create table tb_pedido
     data_pedido                    timestamp      not null,
     data_ultima_atualizacao_pedido timestamp      not null,
     data_agendamento_pedido        timestamp      not null,
-    codigo_situacao_pedido         int            not null references tb_situacao_pedido,
+    codigo_situacao_pedido         int            not null references tb_tipo_situacao_pedido,
     valor_total_pedido             decimal(12, 2) not null,
     observacao_pedido              varchar(500),
     motivo_cancelamento_pedido     varchar(500)
@@ -222,3 +222,14 @@ create table tb_solicitacao_saque
 
 alter table tb_movimento_conta
     add codigo_solicitacao_saque uuid references tb_solicitacao_saque unique;
+
+create table tb_parametros
+(
+    id        int primary key,
+    descricao varchar(50)  not null,
+    valor     varchar(100) not null
+);
+
+alter table tb_loja add column data_cadastro_loja timestamp default now();
+
+alter table tb_produto add column data_cadastro_produto timestamp default now();

@@ -27,7 +27,8 @@ public enum Erro {
     SITUACAO_INVALIDA(18, "Situação inválida"),
     CHAVE_PIX_NAO_PODE_SER_ALTERADA(19, "Chave pix, depois de inserida, não pode ser alterada"),
     JA_POSSUI_UMA_SOLICITACAO_EM_ANDAMENTO(20, "Já possui uma solicitação de saque andamento"),
-    NENHUMA_SOLICITACAO_EM_ANDAMENTO(21, "Nenhuma solicitação de saque em andamento");
+    NENHUMA_SOLICITACAO_EM_ANDAMENTO(21, "Nenhuma solicitação de saque em andamento"),
+    PROBLEMA_NO_PAGAMENTO(22, "Problema com o processamento do pagamento do cliente, o pedido será cancelado.");
 
     private final Integer codigo;
 

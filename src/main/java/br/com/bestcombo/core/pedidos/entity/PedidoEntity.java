@@ -132,7 +132,7 @@ public class PedidoEntity implements Serializable {
     }
 
     private void validaSePodeConcluir() throws NegocioException {
-        if (!situacao.equals(SituacaoPedido.PARCEIRO_PREPARANDO_PEDIDO) || dataHoraAgendamento.isAfter(ZonedDateTime.now(ZoneOffset.UTC))) {
+        if (!situacao.equals(SituacaoPedido.PARCEIRO_PREPARANDO_PEDIDO)) {
             throw new NegocioException(Erro.SITUACAO_INVALIDA);
         }
     }

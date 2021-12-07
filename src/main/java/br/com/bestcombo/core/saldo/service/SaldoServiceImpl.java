@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -76,6 +79,21 @@ public class SaldoServiceImpl implements SaldoService {
                         .codigoLoja(codigoLoja)
                         .build())
                 .orElseGet(() -> criaNovoSaldo(codigoLoja));
+    }
+
+    @Override
+    public BigDecimal getSaldoMes(Month mes, Integer ano, UUID codigoLoja) {
+
+        List<SaldoEntity> saldos = saldoDAO.buscaUltimoSaldoEntreDatas(ano, mes, codigoLoja);
+
+        return saldos.stream()
+                .map(SaldoEntity::getValorDisponivel)
+                .reduce(BigDecimal.ZERO, BigDecimal::subtract)
+                .abs();
+    }
+
+    public Map<String, BigDecimal> getCreditosDebitosPorMes(Month mes, Integer ano, UUID codigoLoja) {
+        return saldoDAO.getCreditosDebitosPorMes(mes, ano, codigoLoja);
     }
 
     private SaldoEntity criaNovoSaldo(UUID codigoLoja) {

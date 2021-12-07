@@ -6,7 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
+
+import br.com.bestcombo.core.produtos.dto.ProdutoDTO;
 
 @Getter
 @Setter
@@ -24,5 +27,7 @@ public class LojaDTO {
     private String descricao;
 
     private String imagem;
+
+    private List<ProdutoDTO> produtos;
 
 }

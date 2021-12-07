@@ -25,4 +25,11 @@ public class PapelDAOImpl extends DAOImpl<PapelEntity, Integer> implements Papel
         return query.getResultList();
     }
 
+    @Override
+    public List<String> buscaPapeisPorCodigoCasoDeUso(Integer casoDeUso) {
+        TypedQuery<String> query = entityManager.createQuery("SELECT p.nome FROM PapelEntity p join p.casosDeUso cdu where cdu.codigo = :codigo", String.class);
+        query.setParameter("codigo", casoDeUso);
+        return query.getResultList();
+    }
+
 }

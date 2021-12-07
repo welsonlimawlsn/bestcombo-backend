@@ -14,6 +14,7 @@ import br.com.bestcombo.core.casosdeuso.dto.RequisicaoDTO;
 import br.com.bestcombo.core.casosdeuso.dto.RespostaDTO;
 import br.com.bestcombo.core.exception.InfraestruturaException;
 import br.com.bestcombo.core.exception.NegocioException;
+import br.com.bestcombo.core.monitoramento.Monitoramento;
 import br.com.bestcombo.ports.casodeuso.ProcessadorCasoDeUso;
 import br.com.bestcombo.ports.service.RequisicaoService;
 import br.com.bestcombo.ports.service.SegurancaService;
@@ -35,13 +36,15 @@ public class ProcessadorCasoDeUsoImpl implements ProcessadorCasoDeUso {
 
     @Override
     public <REQUISICAO extends RequisicaoDTO<RESPOSTA>, RESPOSTA extends RespostaDTO> RESPOSTA processa(REQUISICAO requisicao) throws NegocioException {
-        requisicaoService.validaRequisicao(requisicao);
+        return Monitoramento.monitora(() -> {
+            requisicaoService.validaRequisicao(requisicao);
 
-        segurancaService.verificaAutorizacao(requisicao);
+            segurancaService.verificaAutorizacao(requisicao);
 
-        AbstractCasoDeUso<REQUISICAO, RESPOSTA> casoDeUso = getCasoDeUso(requisicao);
+            AbstractCasoDeUso<REQUISICAO, RESPOSTA> casoDeUso = getCasoDeUso(requisicao);
 
-        return casoDeUso.processaCasoDeUso(requisicao);
+            return casoDeUso.processaCasoDeUso(requisicao);
+        }, log, requisicao, "processa");
     }
 
     @SuppressWarnings("unchecked")

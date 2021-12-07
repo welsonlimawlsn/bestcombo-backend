@@ -11,7 +11,7 @@ import br.com.bestcombo.core.exception.NegocioException;
 import br.com.bestcombo.core.produtos.dto.excluiproduto.ExcluiProdutoRequisicaoDTO;
 import br.com.bestcombo.core.produtos.dto.excluiproduto.ExcluiProdutoRespostaDTO;
 import br.com.bestcombo.core.produtos.entity.ProdutoEntity;
-import br.com.bestcombo.ports.dao.ProdutoDao;
+import br.com.bestcombo.ports.dao.ProdutoDAO;
 import br.com.bestcombo.ports.service.SegurancaService;
 
 @ApplicationScoped
@@ -19,7 +19,7 @@ import br.com.bestcombo.ports.service.SegurancaService;
 @CasoDeUso(CasosDeUso.EXCLUI_PRODUTO)
 public class ExcluiProdutoCasoDeUso extends AbstractCasoDeUso<ExcluiProdutoRequisicaoDTO, ExcluiProdutoRespostaDTO> {
 
-    final ProdutoDao produtoDao;
+    final ProdutoDAO produtoDao;
 
     final SegurancaService segurancaService;
 

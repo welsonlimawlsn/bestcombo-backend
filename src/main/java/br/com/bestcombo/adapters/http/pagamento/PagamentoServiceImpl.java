@@ -105,7 +105,7 @@ public class PagamentoServiceImpl implements PagamentoService {
                         .codigo(cliente.getCodigo().toString())
                         .email(cliente.getEmail())
                         .pais(PAIS_ORIGEM)
-                        .telefones(List.of("+5561981346998"))
+                        .telefones(List.of("+55" + cliente.getTelefone()))
                         .tipo("individual")
                         .nome(nomeCliente)
                         .documentos(List.of(Documento.builder()

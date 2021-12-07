@@ -28,6 +28,7 @@ public class ErroParaStatusCodeMapper {
         STATUS_CODES.put(Erro.ARQUIVO_NAO_ENCONTRADO, Response.Status.NOT_FOUND);
         STATUS_CODES.put(Erro.PEDIDO_NAO_ENCONTRADO, Response.Status.NOT_FOUND);
         STATUS_CODES.put(Erro.NENHUMA_SOLICITACAO_EM_ANDAMENTO, Response.Status.NOT_FOUND);
+        STATUS_CODES.put(Erro.PROBLEMA_NO_PAGAMENTO, Response.Status.BAD_REQUEST);
     }
 
     public static Response.Status getStatusCodePorErro(Erro erro) {

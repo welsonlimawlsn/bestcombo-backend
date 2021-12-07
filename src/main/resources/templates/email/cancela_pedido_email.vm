@@ -1,0 +1,9 @@
+<h1>Olá, $data.nomeUsuario!</h1>
+
+<p>Um pedido seu foi cancelado.</p>
+
+<p>Código do pedido: $data.codigoPedido</p>
+<p>Motivo do cancelamento: $data.motivoCancelamento</p>
+
+<p>Atenciosamente,<br/>
+bestcombo</p>

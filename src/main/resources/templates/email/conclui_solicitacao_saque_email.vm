@@ -1,0 +1,6 @@
+<h1>Olá, $data.nomeParceiro!</h1>
+
+<p>A sua solicitação de saque já foi processada. O valor já deve estar na sua conta.</p>
+
+<p>Atenciosamente,<br/>
+bestcombo</p>

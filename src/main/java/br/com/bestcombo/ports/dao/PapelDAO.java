@@ -9,4 +9,6 @@ public interface PapelDAO extends DAO<PapelEntity, Integer> {
 
     List<String> buscaPapeisPorCasoDeUso(CasoDeUsoEntity casoDeUso);
 
+    List<String> buscaPapeisPorCodigoCasoDeUso(Integer casoDeUso);
+
 }

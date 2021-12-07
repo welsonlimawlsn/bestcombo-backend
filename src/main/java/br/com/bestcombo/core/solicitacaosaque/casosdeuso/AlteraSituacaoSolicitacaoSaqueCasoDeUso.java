@@ -10,9 +10,11 @@ import br.com.bestcombo.core.casosdeuso.enums.CasosDeUso;
 import br.com.bestcombo.core.exception.NegocioException;
 import br.com.bestcombo.core.solicitacaosaque.dto.alterasituacao.AlteraSituacaoSolicitacaoSaqueRequisicaoDTO;
 import br.com.bestcombo.core.solicitacaosaque.dto.alterasituacao.AlteraSituacaoSolicitacaoSaqueRespostaDTO;
+import br.com.bestcombo.core.solicitacaosaque.dto.alterasituacao.ConcluiSolicitacaoSaqueEmailTemplate;
 import br.com.bestcombo.core.solicitacaosaque.entity.SolicitacaoSaqueEntity;
 import br.com.bestcombo.core.solicitacaosaque.enums.SituacaoSolicitacaoSaque;
 import br.com.bestcombo.ports.dao.SolicitacaoSaqueDAO;
+import br.com.bestcombo.ports.service.EmailService;
 import br.com.bestcombo.ports.service.MovimentoService;
 
 @RequiredArgsConstructor
@@ -24,6 +26,8 @@ public class AlteraSituacaoSolicitacaoSaqueCasoDeUso extends AbstractCasoDeUso<A
 
     final MovimentoService movimentoService;
 
+    final EmailService emailService;
+
     @Override
     protected void processa(AlteraSituacaoSolicitacaoSaqueRequisicaoDTO req, AlteraSituacaoSolicitacaoSaqueRespostaDTO res) throws NegocioException {
         SolicitacaoSaqueEntity solicitacaoSaqueEntity = solicitacaoSaqueDAO.buscaPorId(req.getCodigoSolicitacao()).orElseThrow();
@@ -32,6 +36,11 @@ public class AlteraSituacaoSolicitacaoSaqueCasoDeUso extends AbstractCasoDeUso<A
 
         if (req.getSituacaoSolicitacaoSaque().equals(SituacaoSolicitacaoSaque.CONCLUIDO)) {
             movimentoService.criaMovimentoSaque(solicitacaoSaqueEntity);
+            emailService.sendMail(ConcluiSolicitacaoSaqueEmailTemplate.builder()
+                            .to(solicitacaoSaqueEntity.getLoja().getParceiro().getEmail())
+                            .subject("Solicitação de saque concluido")
+                            .nomeParceiro(solicitacaoSaqueEntity.getLoja().getNome())
+                    .build());
         }
     }
 

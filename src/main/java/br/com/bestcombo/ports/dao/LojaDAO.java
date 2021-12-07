@@ -16,4 +16,6 @@ public interface LojaDAO extends DAO<LojaEntity, UUID> {
 
     Collection<LojaEntity> buscaLojaPorTermo(String termo);
 
+    Collection<LojaEntity> listaUltimasLojas();
+
 }

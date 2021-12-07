@@ -65,6 +65,10 @@ INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
 VALUES (29, 'Consulta Extrato Bestcombo');
 INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
 VALUES (30, 'Exclui produto');
+INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
+VALUES (31, 'Lista Últimas Lojas');
+INSERT INTO tb_caso_de_uso (codigo_caso_de_uso, descricao_caso_de_uso)
+VALUES (32, 'Consulta Saldos Mensal');
 
 
 INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
@@ -115,6 +119,8 @@ INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
 VALUES (3, 29);
 INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
 VALUES (1, 30);
+INSERT INTO tb_caso_de_uso_papel (codigo_papel, codigo_caso_de_uso)
+VALUES (3, 32);
 
 INSERT INTO tb_tipo_pessoa (codigo_tipo_pessoa, descricao_tipo_pessoa)
 VALUES (1, 'Parceiro');
@@ -147,17 +153,17 @@ VALUES (6, 'Decoração', 2);
 INSERT INTO tb_categoria (codigo_categoria, nome_categoria, codigo_tipo_servico)
 VALUES (7, 'Serviço de Mesa', 2);
 
-INSERT INTO tb_situacao_pedido (codigo_situacao_pedido, nome_situacao_pedido)
+INSERT INTO tb_tipo_situacao_pedido (codigo_tipo_situacao_pedido, nome_situacao_pedido)
 VALUES (1, 'Aguardando Aprovação do Parceiro');
-INSERT INTO tb_situacao_pedido (codigo_situacao_pedido, nome_situacao_pedido)
+INSERT INTO tb_tipo_situacao_pedido (codigo_tipo_situacao_pedido, nome_situacao_pedido)
 VALUES (2, 'Aguardando Pagamento do Cliente');
-INSERT INTO tb_situacao_pedido (codigo_situacao_pedido, nome_situacao_pedido)
+INSERT INTO tb_tipo_situacao_pedido (codigo_tipo_situacao_pedido, nome_situacao_pedido)
 VALUES (3, 'Parceiro Preparando Pedido');
-INSERT INTO tb_situacao_pedido (codigo_situacao_pedido, nome_situacao_pedido)
+INSERT INTO tb_tipo_situacao_pedido (codigo_tipo_situacao_pedido, nome_situacao_pedido)
 VALUES (4, 'Parceiro Preparando Pedido');
-INSERT INTO tb_situacao_pedido (codigo_situacao_pedido, nome_situacao_pedido)
+INSERT INTO tb_tipo_situacao_pedido (codigo_tipo_situacao_pedido, nome_situacao_pedido)
 VALUES (5, 'Pedido concluido');
-INSERT INTO tb_situacao_pedido (codigo_situacao_pedido, nome_situacao_pedido)
+INSERT INTO tb_tipo_situacao_pedido (codigo_tipo_situacao_pedido, nome_situacao_pedido)
 VALUES (6, 'Pedido Cancelado');
 
 
@@ -188,3 +194,9 @@ INSERT INTO tb_loja (codigo_loja, cnpj_loja, nome_loja, codigo_endereco_loja, co
                      descricao_loja)
 VALUES ('ea31c776-fadb-4c4d-895f-84d18d25b452', '00000000000000', 'BestCombo', '83eeeb6d-b7a6-498b-81c1-96d4aba777b3',
         'c215d450-917f-4d7c-ac49-e14ff0498f15', 'semimagem', 'BestCombo');
+
+INSERT INTO tb_parametros (id, descricao, valor)
+VALUES (1, 'Quantidade dias para liberar dinheiro parceiro', '30');
+
+INSERT INTO tb_parametros (id, descricao, valor)
+VALUES (2, 'Percentual sobre venda cobrada do parceiro', '15');
